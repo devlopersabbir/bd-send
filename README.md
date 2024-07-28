@@ -1,1 +1,1 @@
-## DB Send - Only money transaction platform
+## DB Send - Online money transaction platform
