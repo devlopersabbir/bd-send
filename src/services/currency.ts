@@ -1,5 +1,3 @@
-"use client";
-import { env } from "@/configs/dotenv";
 import axios from "axios";
 import { CurrencyCode } from "@/utils";
 import { CurrencyResponse } from "@/@types";
@@ -18,7 +16,8 @@ class Currency {
   private api_url: string;
 
   constructor() {
-    this.api_key = env.CURRENCY_API_KEY;
+    this.api_key =
+      "fca_live_gQR1fHhRRRXR2Js9swo6DEffmbMmnJlCfqOLbo52"; /** need to be store on **(dotenv)** file */
     this.api_url = "https://api.currencyapi.com/v3";
   }
 

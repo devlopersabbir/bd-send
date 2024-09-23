@@ -5,7 +5,7 @@ const dotenv = z.object({
     .string({
       message: "Envalid Currency API key",
     })
-    .default(process.env.CURRENCY_API_KEY as string),
+    .default("fca_live_gQR1fHhRRRXR2Js9swo6DEffmbMmnJlCfqOLbo52"),
 });
 
 export type TDotenv = z.infer<typeof dotenv>;
