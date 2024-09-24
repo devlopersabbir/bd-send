@@ -1,11 +1,22 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useExchange } from "@/hooks";
+import {
+  useAppStore,
+  useAppDispatch,
+  useAppSelector,
+} from "@/hooks/useExchangeStore";
 import { currency } from "@/services";
+import { RootState } from "@/store";
+import { reduce5Parcent, store } from "@/store/slices";
 import { Currency, CurrencyCode } from "@/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Calculator = ({ data }: { data: Currency[] }) => {
+  const { exchanged_ammount, profit_ammount, storeExchangeData } =
+    useExchange();
+
   const [baseCurrency, setBaseCurrency] = useState<CurrencyCode>(
     CurrencyCode.USD
   );
@@ -23,12 +34,16 @@ const Calculator = ({ data }: { data: Currency[] }) => {
         base_currency: baseCurrency,
         currencies: targetCurrency,
       });
-      console.clear();
       const rate = res.data[targetCurrency];
 
       const convertedAmount = (parseFloat(amount) * rate.value).toFixed(2);
+      // update our redux store
+      storeExchangeData(baseCurrency, targetCurrency, Number(convertedAmount));
+
+      console.log({ profit_ammount });
+      // to showing data set here...
       setResult(
-        `${amount} ${baseCurrency} = ${convertedAmount} ${targetCurrency}`
+        `${amount} ${baseCurrency} = ${exchanged_ammount} ${targetCurrency}`
       );
     } catch (err) {
       console.error(err);
